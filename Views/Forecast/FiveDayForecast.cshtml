@@ -1,0 +1,46 @@
+﻿@model WeatherForecast.Models.ForecastModel
+
+@{
+    ViewBag.Title = "FiveDayForecast";
+}
+
+
+
+
+
+<div class="weather-forecast-list">
+    <h3 class="weather-forecast-header">5 Day Weather Forecast for @Model.city.name ,@Model.city.country</h3>
+</div>
+    @for (var i = 0; i < Model.cnt-1; i=i+8)
+    {
+        var imagePath = "http://openweathermap.org/img/w/" + @Model.list[i].weather[0].icon + ".png";
+
+        var DateofWeather = @Model.list[i].dt_txt;
+        DateTime tmpDate = Convert.ToDateTime(DateofWeather);
+        var DayofTmpDate = tmpDate.DayOfWeek;
+        var DateofTmpdate = tmpDate.Day;
+        string monthName = tmpDate.ToString("MMM");
+
+        string outputDate = tmpDate.ToString("dd-MM-yyyy");
+        <table class="weather-forecast-list_table table table-striped">
+            <tbody>
+                <tr class="weather-forecast-list-items">
+                    <td class="weather-forecast-list-item">
+                        @DayofTmpDate &nbsp;@DateofTmpdate &nbsp; @monthName
+                        <img src="@Url.Content(imagePath)" alt="Image" />
+                    </td>
+
+                    <td class="weather-forecast-list-item">
+                        <span class="weather-forecast-list-day">@Model.list[i].main.temp_max  &#8451; </span>
+                        &nbsp;&nbsp;
+                        <span class="weather-forecast-list-night">@Model.list[i].main.temp_max  &#8451; </span>
+                          <i class="weather-forecast-list-item-naturalPhenomenon">@Model.list[0].weather[0].description</i>
+                              
+                    </td>
+                </tr>
+               
+            </tbody>
+        </table>
+
+    }
+                  
